@@ -1,6 +1,6 @@
-USE burger_db;
+USE sequlizeBurger_db;
 
-INSERT INTO burger
+INSERT INTO Burger
   (burger_name)
   VALUES
   ("New Bacon-ings Burger"),

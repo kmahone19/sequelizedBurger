@@ -8,6 +8,8 @@ const app = express();
 // use deployed port if deployed otherwise use local port 3000
 const PORT = process.env.PORT || 3000;
 
+var db = require("./models");
+
 // use middleware for information passing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -32,4 +34,8 @@ app.get('*', function(req, res) {
 });
 
 // initialize server
-app.listen(PORT, () => console.log(`listening to http://localhost:${PORT}`));
+db.sequelize.sync({ force: false }).then(function() {
+  app.listen(PORT, function() {
+    console.log("App listening on PORT " + PORT);
+  });
+});

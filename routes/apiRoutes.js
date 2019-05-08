@@ -1,32 +1,37 @@
 // require model functions
-const burger = require("../models/burger");
+var db = require("../models");
 
 // exports routes to be used in server.js
 module.exports = app => {
 
   // route to pull all info 
   app.get("/api/burgers", function(req, res){
-    burger.findAll()
-      .then(dbBurgerData => res.jason(dbBurgerData))
-      .catch(err => {
-        console.log(err);
-        res.json(err);
-      });
+    db.Burger.Findall({})
+    .then(dbBurgerData => res.json(dbBurgerData))
+    .catch(err => {
+      console.log(err);
+      res.jason(err);
+    });
   });
 
   // route to add new burgers
   app.post("/api/burgers", function(req, res){
-    burger.create(req.body)
-      .then(dbBurgerData => res.json(dbBurgerData))
-      .catch(err => {
-        console.log(err);
-        res.jason(err);
-      });
-  });
-
+    db.Burger.create(req.body)
+    .then(dbBurgerData => res.json(dbBurgerData))
+    .catch(err => {
+      console.log(err);
+      res.jason(err);
+    });
+  })
   // route to update exsisting burgers
   app.put("/api/burgers/:id", function(req, res){
-    burger.update(req.body.devoured, req.params.id)
+   db.Burger.update(req.body,{
+     where: {
+       where:{
+         id: req.body.id
+       }
+     }
+   })
       .then(dbBurgerData => res.json(dbBurgerData))
       .catch(err => {
         console.log(err);
