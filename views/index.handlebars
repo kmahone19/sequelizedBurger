@@ -1,0 +1,59 @@
+{{!-- header --}}
+<div class="jumbotron jumbotron-fluid bg-warning p-5">
+  <h1> Burger App!</h1>
+</div>
+
+{{!-- central body --}}
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-3">
+      {{!-- new burger sumbision --}}
+      <form>
+        <input id="name" class="form-control" placeholder="Burger Name">
+        <button class="btn btn-block bg-danger text-white" id="submit" type="submit">Add Burger!</button>
+      </form>
+    </div>
+    <div class="col-12 col-md-9">
+      <div class="row">
+        {{!-- left column --}}
+        <div class="col-12 col-md-6">
+          <h3>Burgers Not Eaten Yet!</h3>
+          {{!-- burgers to eat --}}
+          <ul class="list-group">
+            {{#each burgerData}}
+            {{#unless devoured}}
+            <li class="list-group-item d-flex">
+              {{burger_name}}
+              <span class="ml-auto">
+                <button data-id="{{id}}" data-devoured="true" class="btn btn-sm eat-burger bg-danger text-white">
+                  Eat Burger!
+                </button>
+              </span>
+            </li>
+            {{/unless}}
+            {{/each}}
+          </ul>
+        </div>
+        {{!-- right column --}}
+        <div class="col-12 col-md-6">
+          <h3>Burgers That Have Been Eaten!</h3>
+          {{!-- burgers not eatn  --}}
+          <ul class="list-group">
+            {{#each burgerData}}
+            {{#if devoured}}
+            <li class="list-group-item d-flex">
+              {{burger_name}}
+              <span class="ml-auto">
+                <button data-id="{{id}}" data-devoured="false" class="btn btn-sm eat-burger bg-warning">
+                  Make Another One!
+                </button>
+              </span>
+            </li>
+            {{/if}}
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
